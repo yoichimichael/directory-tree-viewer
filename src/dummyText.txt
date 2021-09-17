@@ -1,0 +1,7 @@
+/buildroot/system/system.mk
+/buildroot/system/device_table_dev.txt
+/buildroot/system/device_table.txt
+/buildroot/kernelconfig-recovery.armv7
+/buildroot/support/misc/target-dir-warning.txt
+/buildroot/support/misc/toolchainfile.cmake.in
+/buildroot/support/libtool/buildroot-libtool-v2.2.patch
