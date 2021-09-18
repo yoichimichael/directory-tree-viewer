@@ -1,7 +1,8 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { convertTextToNestedObject } from './helpers';
-import raw from './dummyText.txt';
+import { convertTextToFileTree, convertFileTreeToHtml } from './helpers';
+// import raw from './dummyText.txt';
+import raw from './data.txt';
 
 
 /*
@@ -41,19 +42,15 @@ function App() {
     fetch(raw)
     .then(r => r.text())
     .then(text => {
-      const fileTree = convertTextToNestedObject(text);
-      console.log(fileTree);
+      const fileTree = convertTextToFileTree(text);
+      setFileTree(fileTree);
+      // console.log(text.split('\n'));
     });
   }, []);
-
+  console.log(fileTree);
   return (
     <div className="App">
-      <header className="App-header">
-        <ul>
-          {/* {data.length ? data.map((p, i) => <li key={i
-          }>{p}</li>) : null} */}
-        </ul>
-      </header>
+      {convertFileTreeToHtml(fileTree)}
     </div>
   );
 }
