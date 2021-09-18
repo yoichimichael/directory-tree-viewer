@@ -1,6 +1,8 @@
 import './App.css';
 import { useEffect, useState } from 'react';
+import { convertTextToNestedObject } from './helpers';
 import raw from './dummyText.txt';
+
 
 /*
  import the file => import raw change the raw into to text to be string
@@ -39,48 +41,8 @@ function App() {
     fetch(raw)
     .then(r => r.text())
     .then(text => {
-      const fullDirectoryPaths = text.split('\n');
-      const splitPaths = fullDirectoryPaths.map(p => p.split('/'));
-      const newData = {};
-      splitPaths.forEach(p => {
-
-        // ['', 'buildroot', 'configs', 'at91sam9261ek_defconfig']
-        let prevSection;
-        let currentSection;
-        for (let i = 1; i < p.length; i++) {
-          currentSection = p[i];
-          if (i === p.length - 1) { // for last section
-            
-            if (currentSection.includes('.')) { // is file
-              prevSection[currentSection] = currentSection;
-            } else {
-              prevSection[currentSection] = {};
-            }
-          }
-          
-          if (prevSection) { // in subdirectory
-            if (prevSection[currentSection]) {
-              prevSection = prevSection[currentSection];
-              continue;
-            } else { // directory doesn't exist
-              prevSection[currentSection] = {};
-              prevSection = prevSection[currentSection];
-            }
-          } else { // in parent
-            if (newData[currentSection]) {
-              prevSection = newData[currentSection];
-              continue;
-            } else { // directory doesn't exist
-              newData[currentSection] = {};
-              prevSection = newData[currentSection];
-            }
-          }
-          // directory already exists
-          
-        }
-      });
-      
-      console.log({newData});
+      const fileTree = convertTextToNestedObject(text);
+      console.log(fileTree);
     });
   }, []);
 
