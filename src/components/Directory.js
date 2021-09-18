@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function Directory({ directory, subDirectories }){
+export default function Directory({ directory, margin, subDirectories }){
   const [subDirs, setSubDirs] = useState(null);
   const [showSubDirs, setShowSubDirs] = useState(false);
 
@@ -9,9 +9,9 @@ export default function Directory({ directory, subDirectories }){
   }, [])
 
   return (
-    <div className="directory">
+    <div style={margin} className="directory">
       <div onClick={() => setShowSubDirs(prev => !prev)} className="directory-info">
-        <span>{'>'}</span>
+        <span>{showSubDirs ? 'v' : '>'}</span>
         <p className="directory-name">{directory}</p>
       </div>
       <ul className="sublist">

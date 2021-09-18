@@ -16,9 +16,11 @@ function App() {
     });
   }, []);
 
+
+
   return (
     <div className="App">
-      {convertFileTreeToHtml(fileTree, Directory)}
+      {convertFileTreeToHtml(fileTree, 0, Directory)}
     </div>
   );
 }

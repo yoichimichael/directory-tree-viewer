@@ -39,19 +39,18 @@ export function convertTextToFileTree(text){
   return fileTree;
 }
 
-/* 
-
-
-
-*/
-
-export function convertFileTreeToHtml(fileTree, Component){
+export function convertFileTreeToHtml(fileTree, level, Component){
   const directories = Object.keys(fileTree);
+  
+  const marginLeftStyle = {
+    marginLeft: 8 * level,
+  }
+
   return directories.map((directory, i) => {
     return (
       directory.includes('.') 
-      ? <li key={i} className="filename">{directory}</li> 
-      : <Component key={i} directory={directory} subDirectories={convertFileTreeToHtml(fileTree[directory], Component)}/>
+      ? <li key={i} style={{marginLeft: ((8 * level) + 16)}} className="filename">{directory}</li> 
+      : <Component key={i} directory={directory} margin={marginLeftStyle} subDirectories={convertFileTreeToHtml(fileTree[directory], level + 1, Component)}/>
     );
   })
 }
