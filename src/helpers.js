@@ -1,10 +1,8 @@
 export function convertTextToFileTree(text){
   const fullDirectoryPaths = text.split('\n');
-  console.log({fullDirectoryPaths})
   const splitPaths = fullDirectoryPaths.map(p => p.split('/'));
   const fileTree = {};
   splitPaths.forEach((p, i) => {
-    // console.log({i});
     let prevSection;
     let currentSection;
     for (let i = 1; i < p.length; i++) {
@@ -47,10 +45,14 @@ export function convertTextToFileTree(text){
 
 */
 
-export function convertFileTreeToHtml(fileTree){
+export function convertFileTreeToHtml(fileTree, Component){
   const directories = Object.keys(fileTree);
-  return directories.map(dir => {
-    return dir.includes('.') ? <li>{dir}</li> : <ul>{dir}</ul>;
+  return directories.map((directory, i) => {
+    return (
+      directory.includes('.') 
+      ? <li key={i} className="filename">{directory}</li> 
+      : <Component key={i} directory={directory} subDirectories={convertFileTreeToHtml(fileTree[directory], Component)}/>
+    );
   })
 }
 
